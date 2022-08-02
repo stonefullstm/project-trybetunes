@@ -17,3 +17,9 @@ code {
   display: flex;
   justify-content: center;
 }
+
+.titulo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
