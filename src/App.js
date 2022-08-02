@@ -53,7 +53,6 @@ class App extends React.Component {
     const { loginName, isLoginButtonDisabled, logado, loadingAPI } = this.state;
     return (
       <div>
-        <p>Trybe Tunes</p>
         <Switch>
           <Route
             exact
