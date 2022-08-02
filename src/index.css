@@ -23,3 +23,8 @@ code {
   flex-direction: row;
   justify-content: space-between;
 }
+
+.link-navegacao {
+  display: flex;
+  justify-content: space-between;
+}
