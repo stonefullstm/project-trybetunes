@@ -23,11 +23,16 @@ export default class Album extends Component {
     // const { match: { params: id } } = this.props;
     const { album } = this.state;
     const tracksList = album.filter((music) => music.kind === 'song');
-    const musicsList = tracksList.map((track) => (<MusicCard
-      key={ track.trackId }
-      trackName={ track.trackName }
-      previewUrl={ track.previewUrl }
-    />));
+    const musicsList = tracksList.map((track) => {
+      const { trackId } = track;
+      return (<MusicCard
+        key={ trackId }
+        // trackName={ track.trackName }
+        // previewUrl={ track.previewUrl }
+        // trackId={ track.trackId }
+        track={ track }
+      />);
+    });
     return (
       <div data-testid="page-album">
         <Header />
