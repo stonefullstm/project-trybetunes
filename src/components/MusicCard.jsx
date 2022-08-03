@@ -8,19 +8,21 @@ export default class MusicCard extends Component {
     loadingAPI: 'false',
   }
 
-  onChangeFavorite = async (song) => {
-    this.setState({
-      loadingAPI: 'loading',
-    }, async () => {
-      await addSong(song);
+  onChangeFavorite = async (song, isFavorited) => {
+    if (!isFavorited) {
       this.setState({
-        loadingAPI: 'true',
+        loadingAPI: 'loading',
+      }, async () => {
+        await addSong(song);
+        this.setState({
+          loadingAPI: 'true',
+        });
       });
-    });
+    }
   }
 
   render() {
-    const { track, track: { trackName, previewUrl, trackId } } = this.props;
+    const { track, track: { trackName, previewUrl, trackId }, isFavorite } = this.props;
     const { loadingAPI } = this.state;
     // const { favorites } = this.state;
     // const isFavorite = favorites.some((favorite) => favorite.trackId === trackId);
@@ -40,8 +42,8 @@ export default class MusicCard extends Component {
         <input
           type="checkbox"
           data-testid={ `checkbox-music-${trackId}` }
-          // checked={ isFavorite }
-          onChange={ () => this.onChangeFavorite({ track }) }
+          checked={ isFavorite }
+          onChange={ () => this.onChangeFavorite(track, isFavorite) }
         />
       </div>
     );
@@ -54,4 +56,5 @@ MusicCard.propTypes = {
     previewUrl: PropTypes.string.isRequired,
     trackId: PropTypes.number.isRequired,
   }).isRequired,
+  isFavorite: PropTypes.bool.isRequired,
 };
