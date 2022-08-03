@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Loading from './Loading';
 import getMusics from '../services/musicsAPI';
-import { getFavoriteSongs } from '../services/favoriteSongsAPI';
+import { getFavoriteSongs, addSong } from '../services/favoriteSongsAPI';
 import MusicCard from '../components/MusicCard';
 
 export default class Album extends Component {
@@ -30,6 +30,29 @@ export default class Album extends Component {
     });
   }
 
+  onChangeFavorite = async (song, isFavorited) => {
+    if (!isFavorited) {
+      this.setState({
+        loadingAPI: 'loading',
+      }, async () => {
+        await addSong(song);
+        const favoriteMusics = await getFavoriteSongs();
+        this.setState({
+          loadingAPI: 'true',
+          favoriteSongs: [...favoriteMusics],
+        });
+      });
+    } else {
+      this.setState((prevState) => {
+        const newFavorites = prevState
+          .favoriteSongs.filter((music) => music.trackId !== song.trackId);
+        return {
+          favoritesSongs: newFavorites,
+        };
+      });
+    }
+  }
+
   render() {
     const { album, loadingAPI, favoriteSongs } = this.state;
     const tracksList = album.filter((music) => music.kind === 'song');
@@ -41,6 +64,8 @@ export default class Album extends Component {
         key={ trackId }
         track={ track }
         isFavorite={ isFavorite }
+        onChangeFavorite={ this.onChangeFavorite }
+        loadingAPI={ loadingAPI }
       />);
     });
     return (
