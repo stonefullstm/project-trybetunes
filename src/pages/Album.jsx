@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Loading from './Loading';
 import getMusics from '../services/musicsAPI';
-import { getFavoriteSongs, addSong } from '../services/favoriteSongsAPI';
+import { getFavoriteSongs, addSong, removeSong } from '../services/favoriteSongsAPI';
 import MusicCard from '../components/MusicCard';
 
 export default class Album extends Component {
@@ -43,12 +43,15 @@ export default class Album extends Component {
         });
       });
     } else {
-      this.setState((prevState) => {
-        const newFavorites = prevState
-          .favoriteSongs.filter((music) => music.trackId !== song.trackId);
-        return {
-          favoritesSongs: newFavorites,
-        };
+      this.setState({
+        loadingAPI: 'loading',
+      }, async () => {
+        await removeSong(song);
+        const favoriteMusics = await getFavoriteSongs();
+        this.setState({
+          loadingAPI: 'true',
+          favoriteSongs: [...favoriteMusics],
+        });
       });
     }
   }
