@@ -6,17 +6,17 @@ import Loading from '../pages/Loading';
 export default class Header extends Component {
   state = {
     userName: '',
-    loadingAPI: false,
+    loadingAPI: 'false',
   }
 
   async componentDidMount() {
     this.setState({
-      loadingAPI: true,
+      loadingAPI: 'loading',
     }, async () => {
       const user = await getUser();
       const { name } = user;
       this.setState({
-        loadingAPI: false,
+        loadingAPI: 'true',
         userName: name,
       });
     });
@@ -29,16 +29,45 @@ export default class Header extends Component {
         data-testid="header-component"
       >
         {
-          !loadingAPI ? (
+          loadingAPI !== 'loading' ? (
             <div>
               <div className="titulo">
-                <h1>TrybeTunes</h1>
-                <span data-testid="header-user-name">{ userName }</span>
+                <h1 className="logo">TrybeTunes</h1>
+                <span
+                  className="usuario-titulo"
+                  data-testid="header-user-name"
+                >
+                  { `Usuário: ${userName}` }
+
+                </span>
               </div>
               <nav className="link-navegacao">
-                <Link data-testid="link-to-search" to="/search">Search</Link>
-                <Link data-testid="link-to-favorites" to="/favorites">Favorites</Link>
-                <Link data-testid="link-to-profile" to="/profile">Profile</Link>
+                <div className="search-link">
+                  <Link
+                    data-testid="link-to-search"
+                    to="/search"
+                  >
+
+                    Search
+
+                  </Link>
+                </div>
+                <Link
+                  className="favorites-link"
+                  data-testid="link-to-favorites"
+                  to="/favorites"
+                >
+                  Favorites
+
+                </Link>
+                <Link
+                  className="profile-link"
+                  data-testid="link-to-profile"
+                  to="/profile"
+                >
+                  Profile
+
+                </Link>
 
               </nav>
             </div>

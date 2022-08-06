@@ -38,14 +38,13 @@ export default class Favorites extends Component {
 
   render() {
     const { favoriteSongs, loadingAPI } = this.state;
+    const verdadeiro = true;
     const musicsList = favoriteSongs.map((track) => {
       const { trackId } = track;
-      // const isFavorite = favoriteSongs
-      //   .some((favorite) => favorite.trackId === track.trackId);
       return (<MusicCard
         key={ trackId }
         track={ track }
-        isFavorite="true"
+        isFavorite={ verdadeiro }
         onChangeFavorite={ this.onChangeFavorite }
         loadingAPI={ loadingAPI }
       />);
