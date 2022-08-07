@@ -10,16 +10,15 @@ export default class Profile extends Component {
     dataUser: {},
   };
 
-  componentDidMount = async () => {
-    const user = await getUser();
+  componentDidMount() {
     this.setState({
-    //   loadingAPI: 'loading',
-    // }, async () => {
-      // const user = await getUser();
-      // this.setState(() => ({
-      loadingAPI: 'true',
-      dataUser: user,
-      // }));
+      loadingAPI: 'loading',
+    }, async () => {
+      const user = await getUser();
+      this.setState(() => ({
+        loadingAPI: 'true',
+        dataUser: user,
+      }));
     });
   }
 
@@ -29,21 +28,21 @@ export default class Profile extends Component {
       <div data-testid="page-profile">
         <Header />
         {
-          loadingAPI !== 'loading' ? (
-            <section className="data-user">
-              <img data-testid="profile-image" src={ image } alt="foto do usuário" />
-              <div>
-                <p>{name}</p>
-                <p>{email}</p>
-                <p>{description}</p>
-              </div>
-              <Link to="/profile/edit">
-                <button type="button">Editar perfil</button>
-              </Link>
-
-            </section>
-          ) : (<Loading />)
+          loadingAPI === 'loading' && <Loading />
         }
+        <section className="data-user">
+          <img data-testid="profile-image" src={ image } alt="foto do usuário" />
+          <div>
+            <p>{name}</p>
+            <p>{email}</p>
+            <p>{description}</p>
+          </div>
+          <Link to="/profile/edit">
+            <button type="button">Editar perfil</button>
+          </Link>
+
+        </section>
+
       </div>
     );
   }

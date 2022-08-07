@@ -37,7 +37,7 @@ export default class Header extends Component {
                   className="usuario-titulo"
                   data-testid="header-user-name"
                 >
-                  { `Usuário: ${userName}` }
+                  { `${userName}` }
 
                 </span>
               </div>
