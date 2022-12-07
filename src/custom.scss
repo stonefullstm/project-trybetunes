@@ -1,0 +1,9 @@
+// $turquoise: #5dd52ae0;
+$green: #24d17d;
+$radius: 5px;
+
+@import "node_modules/bulma/bulma.sass";
+
+.bulma-loader-mixin {
+  @include loader;
+}

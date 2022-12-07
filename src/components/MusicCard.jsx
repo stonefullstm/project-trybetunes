@@ -7,27 +7,38 @@ export default class MusicCard extends Component {
       track,
       track: { trackName, previewUrl, trackId },
       isFavorite, onChangeFavorite } = this.props;
+
     return (
-      <div>
-        <p>{trackName}</p>
-        <audio data-testid="audio-component" src={ previewUrl } controls>
-          <track kind="captions" />
-          O seu navegador não suporta o elemento
-          {' '}
-          {' '}
-          <code>audio</code>
-          .
-        </audio>
-        <label htmlFor={ `checkbox-music-${trackId}` }>
-          Favorita
-          <input
-            type="checkbox"
-            data-testid={ `checkbox-music-${trackId}` }
-            id={ `checkbox-music-${trackId}` }
-            checked={ isFavorite }
-            onChange={ () => onChangeFavorite(track, isFavorite) }
-          />
-        </label>
+      <div className="card has-background-grey-light">
+        <div className="card-content">
+          <p className="content">{trackName}</p>
+          <audio
+            className="content"
+            data-testid="audio-component"
+            src={ previewUrl }
+            controls
+          >
+            <track kind="captions" />
+            O seu navegador não suporta o elemento.
+            <code>audio</code>
+          </audio>
+        </div>
+        <div className="card-footer">
+          <div
+            className="card-footer-item"
+            onClick={ () => onChangeFavorite(track, isFavorite) }
+            onKeyDown={ () => {} }
+            role="button"
+            tabIndex="0"
+          >
+            <img
+              data-testid={ `checkbox-music-${trackId}` }
+              src={ isFavorite ? '/images/favorito.png' : '/images/coracao-favorito.png' }
+              width="25px"
+              alt="Favorita"
+            />
+          </div>
+        </div>
       </div>
     );
   }
@@ -41,4 +52,5 @@ MusicCard.propTypes = {
   }).isRequired,
   isFavorite: PropTypes.bool.isRequired,
   onChangeFavorite: PropTypes.func.isRequired,
+  // loadingAPI: PropTypes.string.isRequired,
 };

@@ -28,7 +28,7 @@ export default class Profile extends Component {
       <div data-testid="page-profile">
         <Header />
         {
-          loadingAPI === 'loading' && <Loading />
+          loadingAPI === 'loading' && <span className="is-size-3 bulma-loader-mixin" />
         }
         <section className="data-user">
           <img data-testid="profile-image" src={ image } alt="foto do usuário" />

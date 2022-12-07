@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { getUser } from '../services/userAPI';
-import Loading from '../pages/Loading';
+// import Loading from '../pages/Loading';
 
 export default class Header extends Component {
   state = {
@@ -27,56 +27,64 @@ export default class Header extends Component {
     return (
       <header
         data-testid="header-component"
+        className="panel is-primary"
       >
-        {
-          loadingAPI !== 'loading' ? (
-            <div>
-              <div className="titulo">
-                <h1 className="logo">TrybeTunes</h1>
-                <span
-                  className="usuario-titulo"
-                  data-testid="header-user-name"
-                >
-                  { `${userName}` }
+        <div
+          className={ `panel-heading is-flex is-align-items-center
+                  is-flex-direction-row is-justify-content-space-between` }
+        >
+          <img
+            src="/images/trybe_transparente.png"
+            alt="logo"
+            width="150px"
+            className=""
+          />
+          { loadingAPI === 'loading'
+            ? <span className="is-size-3 bulma-loader-mixin" />
+            : (
+              <span
+                data-testid="header-user-name"
+                className="tag is-dark is-large is-rounded ml-5"
+              >
+                { `Usuário: ${userName}` }
+              </span>)}
+        </div>
+        <nav
+          className="tabs is-medium is-fullwidth is-boxed"
+        >
+          <ul>
+            <li>
+              <Link
+                data-testid="link-to-search"
+                to="/search"
+              >
+                Search
 
-                </span>
-              </div>
-              <nav className="link-navegacao">
-                <div className="search-link">
-                  <Link
-                    data-testid="link-to-search"
-                    to="/search"
-                  >
+              </Link>
 
-                    Search
+            </li>
+            <li className="">
 
-                  </Link>
-                </div>
-                <Link
-                  className="favorites-link"
-                  data-testid="link-to-favorites"
-                  to="/favorites"
-                >
-                  Favorites
+              <Link
+                data-testid="link-to-favorites"
+                to="/favorites"
+                className=""
+              >
+                Favorites
 
-                </Link>
-                <Link
-                  className="profile-link"
-                  data-testid="link-to-profile"
-                  to="/profile"
-                >
-                  Profile
-
-                </Link>
-
-              </nav>
-            </div>
-          ) : (
-            <div>
-              <Loading />
-            </div>
-          )
-        }
+              </Link>
+            </li>
+            <li className="">
+              <Link
+                data-testid="link-to-profile"
+                to="/profile"
+                className=""
+              >
+                Profile
+              </Link>
+            </li>
+          </ul>
+        </nav>
       </header>
     );
   }

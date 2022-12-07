@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
-import Loading from './Loading';
+// import Loading from './Loading';
 import getMusics from '../services/musicsAPI';
 import { getFavoriteSongs, addSong, removeSong } from '../services/favoriteSongsAPI';
 import MusicCard from '../components/MusicCard';
@@ -63,23 +63,38 @@ export default class Album extends Component {
       const { trackId } = track;
       const isFavorite = favoriteSongs
         .some((favorite) => favorite.trackId === track.trackId);
-      return (<MusicCard
-        key={ trackId }
-        track={ track }
-        isFavorite={ isFavorite }
-        onChangeFavorite={ this.onChangeFavorite }
-        loadingAPI={ loadingAPI }
-      />);
+      return (
+        <div key={ trackId }>
+          <div
+            className="column"
+          >
+            <MusicCard
+              track={ track }
+              isFavorite={ isFavorite }
+              onChangeFavorite={ this.onChangeFavorite }
+              loadingAPI={ loadingAPI }
+            />
+          </div>
+        </div>
+      );
     });
     return (
       <div data-testid="page-album">
         <Header />
+        <div className="columns is-centered">
+          {loadingAPI === 'loading' && <span className="is-size-3 bulma-loader-mixin" />}
+        </div>
+
         { album.length > 0 && (
-          <section>
-            {loadingAPI === 'loading' && <Loading />}
-            <p data-testid="artist-name">{album[0].artistName}</p>
-            <p data-testid="album-name">{album[0].collectionName}</p>
-            <div>
+          <section className="hero is-fullheight">
+            <div className="columns is-centered">
+              <div className="box has-text-centered">
+                <img src={ album[0].artworkUrl100 } width="200px" alt="Imagem do album" />
+                <p data-testid="artist-name">{album[0].artistName}</p>
+                <p data-testid="album-name">{album[0].collectionName}</p>
+              </div>
+            </div>
+            <div className="columns is-multiline is-centered">
               { musicsList }
             </div>
           </section>

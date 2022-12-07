@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
-import Loading from './Loading';
+// import Loading from './Loading';
 
 const MIN_LENGTH_NAME = 2;
 
@@ -57,54 +57,81 @@ export default class Search extends Component {
       albumsList,
       foundName } = this.state;
     const albumsListJSX = albumsList.map((album) => (
-      <div key={ album.collectionId }>
-        <img src={ album.artworkUrl100 } alt="imagem do album" />
-        <p>{album.collectionName}</p>
-        <Link
-          to={ `/album/${album.collectionId}` }
-          data-testid={ `link-to-album-${album.collectionId}` }
-        >
-          Mais detalhes
+      <div className="column is-2" key={ album.collectionId }>
+        <div
+          className={ `card
+         is-rounded` }
 
-        </Link>
+        >
+          <div className="card-image">
+            <figure className="image">
+              <img src={ album.artworkUrl100 } alt="imagem do album" />
+            </figure>
+          </div>
+          <div className="card-content">
+            <p className="content">{album.collectionName}</p>
+          </div>
+          <div className="card-footer">
+            <Link
+              to={ `/album/${album.collectionId}` }
+              data-testid={ `link-to-album-${album.collectionId}` }
+              className="card-footer-item"
+            >
+              <button type="button" className="button is-link is-fullwidth">
+                Detalhes
+
+              </button>
+
+            </Link>
+          </div>
+        </div>
       </div>
     ));
     return (
       <div data-testid="page-search">
         <Header />
         {
-          loadingAPI !== 'loading' ? (
-            <div>
-              <label htmlFor="search-name">
-                Nome:
-                <input
-                  type="text"
-                  name="searchName"
-                  id="search-name"
-                  data-testid="search-artist-input"
-                  value={ searchName }
-                  onChange={ this.onArtistInputChange }
-                />
-              </label>
-              <button
-                type="submit"
-                name="searchButton"
-                data-testid="search-artist-button"
-                disabled={ isArtistButtonDisabled }
-                onClick={ this.onArtistButtonClick }
-              >
-                Pesquisar
-              </button>
-            </div>
-          ) : (<Loading />)
+          // loadingAPI !== 'loading' ? (
+          <div
+            className={ `control is-flex 
+                is-justify-content-center is-align-items-flex-end block` }
+          >
+            <label htmlFor="search-name" className="is-medium">
+              Artista:
+              <input
+                type="text"
+                name="searchName"
+                id="search-name"
+                data-testid="search-artist-input"
+                className="input"
+                value={ searchName }
+                onChange={ this.onArtistInputChange }
+              />
+            </label>
+            <button
+              type="submit"
+              name="searchButton"
+              data-testid="search-artist-button"
+              className={ loadingAPI === 'loading'
+                ? 'button is-primary ml-5 is-loading'
+                : 'button is-primary ml-5' }
+              disabled={ isArtistButtonDisabled }
+              onClick={ this.onArtistButtonClick }
+            >
+              Pesquisar
+            </button>
+          </div>
+          // ) : (<Loading />)
         }
         {
           foundName !== '' && loadingAPI === 'true' && (
             <section>
-              <p>
+              <p className="is-size-4 has-text-centered block">
                 {`Resultado de álbuns de: ${foundName}`}
               </p>
-              {albumsListJSX}
+              <div className="columns is-multiline">
+                {albumsListJSX}
+              </div>
             </section>
           )
         }

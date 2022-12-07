@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../components/Header';
 import MusicCard from '../components/MusicCard';
-import Loading from './Loading';
+// import Loading from './Loading';
 import { removeSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 export default class Favorites extends Component {
@@ -23,7 +23,6 @@ export default class Favorites extends Component {
   }
 
   onChangeFavorite = async (song) => {
-    console.log(song);
     this.setState({
       loadingAPI: 'loading',
     }, async () => {
@@ -41,21 +40,33 @@ export default class Favorites extends Component {
     const verdadeiro = true;
     const musicsList = favoriteSongs.map((track) => {
       const { trackId } = track;
-      return (<MusicCard
-        key={ trackId }
-        track={ track }
-        isFavorite={ verdadeiro }
-        onChangeFavorite={ this.onChangeFavorite }
-        loadingAPI={ loadingAPI }
-      />);
+      return (
+        <div key={ trackId }>
+          <div
+            className="column"
+          >
+            <MusicCard
+              track={ track }
+              isFavorite={ verdadeiro }
+              onChangeFavorite={ this.onChangeFavorite }
+              loadingAPI={ loadingAPI }
+            />
+          </div>
+        </div>
+      );
     });
 
     return (
       <div data-testid="page-favorites">
         <Header />
-        {loadingAPI === 'loading' && <Loading />}
-        <div>
+        <div className="columns is-centered">
+          {loadingAPI === 'loading' && <span className="is-size-3 bulma-loader-mixin" />}
+        </div>
+        <div
+          className="columns is-multiline is-centered"
+        >
           {musicsList}
+
         </div>
       </div>
     );

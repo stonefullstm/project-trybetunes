@@ -77,7 +77,6 @@ export default class ProfileEdit extends Component {
     return (
       <div data-testid="page-profile-edit">
         <Header />
-        <p>Editar perfil</p>
         {loadingAPI === 'loading' && <Loading />}
         <form className="update-form">
           <label htmlFor="editName">
@@ -130,7 +129,7 @@ export default class ProfileEdit extends Component {
             disabled={ isSaveButtonDisabled }
             onClick={ this.saveUser }
           >
-            Salvar
+            Editar perfil
 
           </button>
         </form>
