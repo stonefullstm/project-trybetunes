@@ -21,7 +21,18 @@ Instalar as dependências
 ### Como executar  
 
 `npm start` 
- 
+
+## Funcionalidades
+
+1. Informar o nome do usuário para logar na aplicação
+   ![Tela Login](images/login.png)
+2. Na tela de pesquisa (Search) digite o nome de um artista para buscar os álbuns correspondentes
+   ![Tela Search](images/search.png)
+3. Escolha um álbum para ver a lista de músicas e clique no botão **Detalhes**
+   ![Tela Musics](images/musics.png)
+4. Clique no player para ouvir um pequeno trecho ou no coração para favoritar/desfavoritar a música
+5. Na tela de favoritas (Favorites) pode-se visualizar todas as músicas favoritas, ouvir trechos ou desfavoritar
+   ![Tela Favorites](images/favorites.png)
 ## Tecnologias utilizadas
 <div display="inline-block">
 <img width="" src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
